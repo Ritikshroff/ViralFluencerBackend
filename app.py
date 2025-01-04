@@ -10,6 +10,7 @@ CORS(app)  # Enable CORS for cross-origin requests (React to Flask)
 client = MongoClient("mongodb+srv://Ritik:ritik123@cluster0.btkvbre.mongodb.net/")  # Replace with your MongoDB Atlas URI
 db = client["contact_db"]  # Replace with your desired database name
 collection = db["contacts"]  # Replace with your desired collection name
+influencers_collection = db["influencers"]  # Collection for influencer signups
 
 # Route to handle form submissions
 @app.route('/submit-form', methods=['POST'])
@@ -22,6 +23,16 @@ def submit_form():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# Route to handle influencer signups
+@app.route('/signup/influencer', methods=['POST'])
+def signup_influencer():
+    try:
+        influencer_data = request.json  # Get the JSON data from the request
+        # Insert data into the influencers collection
+        influencers_collection.insert_one(influencer_data)
+        return jsonify({"message": "Influencer signup successful!"}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # Health check route
 @app.route('/')
