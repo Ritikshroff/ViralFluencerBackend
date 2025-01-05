@@ -7,6 +7,9 @@ import jwt
 import datetime
 import secrets
 print(secrets.token_hex(32))  # Generates a 64-character hexadecimal string
+jwt_secret_key = "your_actual_secret_key"
+print(type(jwt_secret_key))  # Should be <class 'str'>
+
 
 
 app = Flask(__name__)
@@ -55,7 +58,7 @@ def login():
         # Generate JWT token (optional)
         token = jwt.encode(
             {"user_id": str(user["_id"]), "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)},
-            secrets,  # Replace with your actual secret key
+            jwt_secret_key,  # Replace with your actual secret key
             algorithm="HS256"
         )
 
