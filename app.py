@@ -3,8 +3,8 @@ from flask_cors import CORS
 from pymongo import MongoClient
 import os
 import bcrypt
-import jwt
-import datetime
+# import jwt
+# import datetime
 import secrets
 print(secrets.token_hex(32))  # Generates a 64-character hexadecimal string
 
@@ -53,13 +53,13 @@ def login():
             return jsonify({"error": "Invalid credentials"}), 401
 
         # Generate JWT token (optional)
-        token = jwt.encode(
-            {"user_id": str(user["_id"]), "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)},
-            secrets,  # Replace with your actual secret key
-            algorithm="HS256"
-        )
+        # token = jwt.encode(
+        #     {"user_id": str(user["_id"]), "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)},
+        #     secrets,  # Replace with your actual secret key
+        #     algorithm="HS256"
+        # )
 
-        return jsonify({"message": "Login successful!", "token": token}), 200
+        return jsonify({"message": "Login successful!"}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
