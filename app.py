@@ -49,6 +49,13 @@ def login():
         # Check if the user exists in influencers collection
         user = influencers_collection.find_one({"email": email})
         if not user:
+            user = brand_collection.find_one({"email" : email})
+        if not user:
+            user = agency_collection.find_one({"email" : email})
+        if not user:
+            user = partner_collection.find_one({"email" : email})
+            
+        if not user:
             return jsonify({"error": "User not found"}), 404
 
         # Compare hashed password
