@@ -30,7 +30,7 @@ def submit_form():
         collection.insert_one(data)
         return jsonify({"message": "Form submitted successfully!"}), 201
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}), 500 
 
 @app.route('/login', methods=['POST'])
 def login():
