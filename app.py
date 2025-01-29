@@ -8,6 +8,7 @@ import datetime
 import secrets
 from instagram_api import get_instagram_profile, get_media_insights
 from webhook import webhook_bp
+import logging
 print(secrets.token_hex(32))  # Generates a 64-character hexadecimal string
 jwt_secret_key = "your_actual_secret_key"
 print(type(jwt_secret_key))  # Should be <class 'str'>
@@ -157,6 +158,8 @@ def get_media_insights_route():
 
 # Registering the webhook blueprint
 app.register_blueprint(webhook_bp)
+# Enable logging
+# logging.basicConfig(level=logging.DEBUG)
 
 # Health check route
 @app.route('/')
