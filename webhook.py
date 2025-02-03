@@ -3,7 +3,7 @@ from flask import Blueprint, request, jsonify
 webhook_bp = Blueprint("webhook", __name__)
 
 # Replace this with your actual token
-VERIFY_TOKEN = "IGAAXojLdxcnBBZAFBkSFA2ZAnBNMG5lVk9yWGR6QlN2d3ZADbmF3M1RoV1YxMjUwNDBkTXFJVXJJWXFKaGVBdWRRUkVTcXVySkZANVXVGRmFRNzFTVl9Rd1hHT3JZAWXlCSVpzUThSM1JiTmNwVk0yRC0xNXZARMHRwMmFmLU16VEU2MAZDZD"
+VERIFY_TOKEN = "IGAAXPKaG1zuVBZAE16UUhTNVc4MENQMmFUdGQwWVMxSUpFYk13ZAERITmdEM05sbGlJQm93b0t3eENHOVdIY3ZAUbThUanRyRWsxN0JJYzU1dVZA6ODNmS3JHaGZAXazUzeU1mdDhMdXBSWnQ2enhWeFF0ZAF9sSHJuazBmQWR3c3dJRQZDZD"
 
 @webhook_bp.route("/webhook", methods=["GET"])
 def verify_webhook():
