@@ -22,10 +22,11 @@
 #         return jsonify({"error": "Failed to fetch media insights"}), 500
 
 
-import requests
-from flask import jsonify
-from config import Config
 
+
+import requests
+from flask import jsonify, Response
+from config import Config  # Ensure Config is properly imported
 
 def get_instagram_access_token(auth_code):
     url = "https://api.instagram.com/oauth/access_token"
@@ -42,11 +43,16 @@ def get_instagram_access_token(auth_code):
         response_data = response.json()  # Convert response to JSON
 
         if response.status_code == 200:
-            return response_data  # ✅ Return as a dictionary (not jsonify)
+            return jsonify(response_data)  # ✅ Proper JSON response
         else:
-            return {
-                "error": "Failed to get access token",
-                "details": response_data,
-            }, response.status_code
+            return Response(
+                jsonify({"error": "Failed to get access token", "details": response_data}),
+                status=response.status_code,
+                mimetype="application/json",
+            )
     except Exception as e:
-        return {"error": str(e)}, 500
+        return Response(
+            jsonify({"error": str(e)}),
+            status=500,
+            mimetype="application/json",
+        )
