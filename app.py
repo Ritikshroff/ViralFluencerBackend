@@ -10,6 +10,8 @@ import secrets
 from webhook import webhook_bp
 import logging
 from auth import auth_bp
+from flask import Blueprint, request
+from instagram_api import get_instagram_access_token
 print(secrets.token_hex(32))  # Generates a 64-character hexadecimal string
 jwt_secret_key = "your_actual_secret_key"
 print(type(jwt_secret_key))  # Should be <class 'str'>
@@ -162,6 +164,18 @@ app.register_blueprint(webhook_bp)
 app.register_blueprint(auth_bp)
 # Enable logging
 # logging.basicConfig(level=logging.DEBUG)
+
+
+auth_bp = Blueprint('auth', __name__)
+
+@auth_bp.route('/get-instagram-token', methods=['POST'])
+def get_token():
+    auth_code = request.json.get('code')
+
+    if not auth_code:
+        return {"error": "Authorization code is required"}, 400
+
+    return get_instagram_access_token(auth_code)
 
 # Health check route
 @app.route('/')
