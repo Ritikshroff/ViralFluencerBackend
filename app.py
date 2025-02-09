@@ -6,9 +6,10 @@ import bcrypt
 import jwt
 import datetime
 import secrets
-from instagram_api import get_instagram_profile, get_media_insights
+# from instagram_api import get_instagram_profile, get_media_insights
 from webhook import webhook_bp
 import logging
+from auth import auth_bp
 print(secrets.token_hex(32))  # Generates a 64-character hexadecimal string
 jwt_secret_key = "your_actual_secret_key"
 print(type(jwt_secret_key))  # Should be <class 'str'>
@@ -145,19 +146,20 @@ def signup_partner():
         return jsonify({"error": str(e)}), 500
     
     # Use the Instagram API functions in routes
-@app.route('/get-instagram-profile', methods=['GET'])
-def get_instagram_profile_route():
-    access_token = request.args.get('access_token')
-    return get_instagram_profile(access_token)
+# @app.route('/get-instagram-profile', methods=['GET'])
+# def get_instagram_profile_route():
+#     access_token = request.args.get('access_token')
+#     return get_instagram_profile(access_token)
 
-@app.route('/get-media-insights', methods=['GET'])
-def get_media_insights_route():
+# @app.route('/get-media-insights', methods=['GET'])
+# def get_media_insights_route():
     media_id = request.args.get('media_id')
     access_token = request.args.get('access_token')
     return get_media_insights(media_id, access_token)
 
 # Registering the webhook blueprint
 app.register_blueprint(webhook_bp)
+app.register_blueprint(auth_bp)
 # Enable logging
 # logging.basicConfig(level=logging.DEBUG)
 

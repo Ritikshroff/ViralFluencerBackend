@@ -1,8 +1,9 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()  # Load environment variables
 
-INSTAGRAM_CLIENT_ID = os.getenv("INSTAGRAM_CLIENT_ID")
-INSTAGRAM_CLIENT_SECRET = os.getenv("INSTAGRAM_CLIENT_SECRET")
-INSTAGRAM_REDIRECT_URI = "http://127.0.0.1:3000/InstagramAuth"  # Matches frontend
+class Config:
+    INSTAGRAM_CLIENT_ID = os.getenv("INSTAGRAM_APP_ID")
+    INSTAGRAM_CLIENT_SECRET = os.getenv("INSTAGRAM_APP_SECRET")
+    INSTAGRAM_REDIRECT_URI = os.getenv("REDIRECT_URI")
