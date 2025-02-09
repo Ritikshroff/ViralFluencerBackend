@@ -30,20 +30,23 @@ from config import Config
 def get_instagram_access_token(auth_code):
     url = "https://api.instagram.com/oauth/access_token"
     payload = {
-        'client_id': Config.INSTAGRAM_CLIENT_ID,
-        'client_secret': Config.INSTAGRAM_CLIENT_SECRET,
-        'grant_type': 'authorization_code',
-        'redirect_uri': Config.INSTAGRAM_REDIRECT_URI,
-        'code': auth_code
+        "client_id": Config.INSTAGRAM_CLIENT_ID,
+        "client_secret": Config.INSTAGRAM_CLIENT_SECRET,
+        "grant_type": "authorization_code",
+        "redirect_uri": Config.INSTAGRAM_REDIRECT_URI,
+        "code": auth_code,
     }
 
     try:
         response = requests.post(url, data=payload)
-        response_data = response.json()
+        response_data = response.json()  # Convert response to JSON
 
         if response.status_code == 200:
-            return jsonify(response_data)  # Return access token
+            return response_data  # ✅ Return as a dictionary (not jsonify)
         else:
-            return jsonify({'error': 'Failed to get access token', 'details': response_data}), response.status_code
+            return {
+                "error": "Failed to get access token",
+                "details": response_data,
+            }, response.status_code
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return {"error": str(e)}, 500
